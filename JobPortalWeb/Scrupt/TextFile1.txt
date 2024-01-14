@@ -1,0 +1,37 @@
+﻿USE [JobPortal]
+GO
+/****** Object:  StoredProcedure [dbo].[UpdatePosition]    Script Date: 1/14/2024 12:17:38 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+ Create Procedure [dbo].[SetPositionStatus]
+ @CandidateId int,
+ @PositionId int,
+ @Status varchar(500)
+AS
+insert into [dbo].[CandidateStatus]  values (@CandidateId,@Status,@PositionId)
+
+USE [JobPortal]
+GO
+---------------------------------------------------------------------------------------------
+/****** Object:  Table [dbo].[CandidateStatus]    Script Date: 1/14/2024 9:50:47 AM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[CandidateStatus](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[CandidateId] [int] NOT NULL,
+	[Status] [varchar](500) NOT NULL,
+	[PossitionId] [int] NOT NULL,
+ CONSTRAINT [PK_CandidateStatus] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+

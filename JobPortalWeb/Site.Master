@@ -52,6 +52,8 @@
                         <li class="nav-item"><a class="nav-link" runat="server" style="color: white" href="Position.aspx">Postion</a></li>
                         <li class="nav-item"><a class="nav-link" runat="server" style="color: white" href="Registration.aspx">Candidate Registration</a></li>
                         <li class="nav-item"><a class="nav-link" runat="server" style="color: white" href="CandidateStatus.aspx">Candidate Status</a></li>
+                        <li class="nav-item"><a class="nav-link" runat="server" style="color: white" href="PositionStatus.aspx">Position Status</a></li>
+                        <li class="nav-item"><a class="nav-link" runat="server" style="color: white" href="UserRegister.aspx">Sign Up</a></li>
                     </ul>
                 </div>
             </div>

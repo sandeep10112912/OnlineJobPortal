@@ -50,7 +50,7 @@ namespace JobPortalWeb.DataContext
             try
             {
                 OpenConnection();
-                var str = "UPDATE InterviewSteps  SET Name = '"+name+"' Where Id = "+id+""; 
+                var str = "UPDATE InterviewSteps  SET Name = '" + name + "' Where Id = " + id + "";
                 SqlCommand cmd = new SqlCommand(str, cnn);
                 cmd.CommandType = System.Data.CommandType.Text;
                 var result = cmd.ExecuteNonQuery();
@@ -115,7 +115,7 @@ namespace JobPortalWeb.DataContext
             }
         }
 
-        public static bool UpdatePostion(int id, string name, string description,bool isActive, string ids)
+        public static bool UpdatePostion(int id, string name, string description, bool isActive, string ids)
         {
             try
             {
@@ -288,6 +288,28 @@ namespace JobPortalWeb.DataContext
 
         }
 
+        public static DataTable GetCandidateStatusDetails()
+        {
+            try
+            {
+                OpenConnection();
+                string query = "Select Id, CandidateName,PositionName,Status from CandidateStatus";
+                DataTable dt = new DataTable();
+                SqlCommand cmd = new SqlCommand(query, cnn);
+                SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(cmd);
+                sqlDataAdapter.Fill(dt);
+                CloseConnection();
+                return dt;
+            }
+            catch (Exception)
+            {
+                return null;
+
+            }
+
+        }
+
+
         public static bool DeleteCandidate(int Id)
         {
             try
@@ -309,7 +331,7 @@ namespace JobPortalWeb.DataContext
 
         }
 
-        public static bool SetCandidatePostionDetails(int pid,int cid,string status)
+        public static bool SetCandidatePostionDetails(int pid, int cid, string status, string cname, string pname)
         {
             try
             {
@@ -319,6 +341,8 @@ namespace JobPortalWeb.DataContext
                 cmd.Parameters.AddWithValue("@CandidateId", cid);
                 cmd.Parameters.AddWithValue("@Status", status);
                 cmd.Parameters.AddWithValue("@PositionId", pid);
+                cmd.Parameters.AddWithValue("@CandidateName", cname);
+                cmd.Parameters.AddWithValue("@PositionName", pname);
 
                 var result = cmd.ExecuteNonQuery();
                 if (result == -1)
@@ -335,5 +359,54 @@ namespace JobPortalWeb.DataContext
             }
 
         }
+
+        public static bool SaveUserDetails(string name, string password, string tpe)
+        {
+            try
+            {
+                OpenConnection();
+                SqlCommand cmd = new SqlCommand("SaveUserMaster", cnn);
+                cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@Name", name);
+                cmd.Parameters.AddWithValue("@Password", password);
+                cmd.Parameters.AddWithValue("@LoginType", tpe);
+                var result = cmd.ExecuteNonQuery();
+                if (result == -1)
+                {
+                    return false;
+                }
+                else
+                    return true;
+            }
+            catch (Exception)
+            {
+                return false;
+
+            }
+
+        }
+        public static string GetLoginDetails(string username, string pass)
+        {
+            try
+            {
+                OpenConnection();
+                string query = "Select  TOP 1 * from LoginMaster where Name='" + username + "' and Password='" + pass + "'";
+                DataTable dt = new DataTable();
+                SqlCommand cmd = new SqlCommand(query, cnn);
+                SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(cmd);
+                sqlDataAdapter.Fill(dt);
+                DataRow ds = dt.Rows[0];
+                string name = ds["LoginType"].ToString();
+                CloseConnection();
+                return name;
+            }
+            catch (Exception)
+            {
+                return null;
+
+            }
+
+        }
+
     }
 }

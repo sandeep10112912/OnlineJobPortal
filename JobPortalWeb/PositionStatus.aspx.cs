@@ -11,7 +11,15 @@ namespace JobPortalWeb
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            if (!IsPostBack)
+            {
+                RefreshGrid();
+            }
+        }
+        public void RefreshGrid()
+        {
+            PostionGridView.DataSource = DataContext.DataContext.GetCandidateStatusDetails();
+            PostionGridView.DataBind();
         }
     }
 }

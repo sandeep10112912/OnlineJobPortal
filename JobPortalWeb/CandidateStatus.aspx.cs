@@ -50,7 +50,7 @@ namespace JobPortalWeb
         {
             if (drpCandidate.SelectedItem != null && drpPosition.SelectedItem != null)
             {
-                var res = DataContext.DataContext.SetCandidatePostionDetails(int.Parse(drpCandidate.SelectedValue), int.Parse(drpPosition.SelectedValue), drpStatus.Text);
+                var res = DataContext.DataContext.SetCandidatePostionDetails(int.Parse(drpCandidate.SelectedValue), int.Parse(drpPosition.SelectedValue), drpStatus.Text, drpCandidate.SelectedItem.Text, drpPosition.SelectedItem.Text);
                 if (res)
                 {
                     messageText.Text = "  Canditate Status Saved succesully";
